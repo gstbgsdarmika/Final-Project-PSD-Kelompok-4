@@ -4,7 +4,7 @@
 #include <conio.h>
 
 //function untuk mengecek identitas nasabah
-void cekident(asal) {
+void checkIdentity(asal){
     int password;
     search = head;
     if(head == NULL){
@@ -13,9 +13,8 @@ void cekident(asal) {
       getch();
       main();
     }
-
-   while(search!=NULL){
-      if(search->nomor == asal){
+    while(search!=NULL){
+        if(search->nomor == asal) {
          printf("\n\t\t Nama Nasabah       : %s\n", search->nama);
          printf("\n\t\t Masukkan password  : ");
          scanf("%d", &password);
@@ -24,51 +23,53 @@ void cekident(asal) {
             printf("\n\t Tekan apa saja untuk kembali");
             getch();
             main();
-         } else if ((search->pass == password)) {
-                printf("\n\t Login berhasil, \n");
-                return;
-           }
-      } if(search->next != NULL) {
-          search = search->next;
-        } else {
-            printf("\n\t\t\t Identitas nasabah tidak ditemukan\n");
-            printf("\n\t\t\t   Tekan apa saja untuk kembali\n");
-            getch();
-            main();
-          }
+           } else if ((search->pass == password)){
+               printf("\n\t Login berhasil, \n");
+               return;
+               }
+        } if(search->next != NULL) {
+               search = search->next;
+             }  else {
+                 printf("\n\t\t\t Identitas nasabah tidak ditemukan\n");
+                 printf("\n\t\t\t   Tekan apa saja untuk kembali\n");
+                 getch();
+                 main();
+                }
      }
 }
 
+
 //function untuk menghapus data nasabah pada menu kedua
-void hapusdata(int delete){
-   if (head == NULL){
-      printf("\n\t\t\t\t Tidak ada data nasabah\n");
-      return;
-   }
+void deleteData(int delete)
+{
+   if (head == NULL) {
+       printf("\n\t\t\t\t Tidak ada data nasabah\n");
+       return;
+     }
 
    hapus = head;
 
-   while(hapus!=NULL) {
+   while(hapus!=NULL){
       if(hapus->nomor == delete) {
-         if (hapus == head) {
-             head = head->next;
-             free(hapus);
-             hapus = head;
-             printf("\n\t\t\t Data nasabah terhapus\n");
-             jumlahnode--;
-             return;
-          } else {
-                head->prev->next = hapus->next;
+            if (hapus == head) {
+                head = head->next;
                 free(hapus);
+                hapus = head;
                 printf("\n\t\t\t Data nasabah terhapus\n");
-                hapus = head->prev->next;
                 jumlahnode--;
-              }
-       } else {
+                return;
+              } else {
+                    head->prev->next = hapus->next;
+                    free(hapus);
+                    printf("\n\t\t\t Data nasabah terhapus\n");
+                    hapus = head->prev->next;
+                    jumlahnode--;
+                }
+         }else{
             head->prev = hapus;
             hapus = hapus->next;
-           }
-    }
+            }
+     }
 }
 
 int main()
@@ -83,13 +84,13 @@ int main()
         case 1:
         
         case 2:
-        system("cls");
+            system("cls");
             printf("\n\n=========================::::: Hapus Data Nasabah :::::=========================\n");
             printf("\n\t Masukkan Identitas Nasabah yang ingin Dihapus\n");
             printf("\n\t\t Nomor identitas    : ");
             scanf("%d", &del);
-            cekident(del);
-            hapusdata(del);
+            checkIdentity(del);
+            deletedata(del);
             break;
         case 3:
         
