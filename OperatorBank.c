@@ -149,6 +149,32 @@ void deleteData(int delete)
    }
 }
 
+//function untuk menampilkan data nasabah pada menu ketiga
+void traverseNode(){
+    temp2 = head;
+    system("cls");
+
+    if (temp2 == NULL){
+        printf("\n\t\t\t\t Tidak ada data nasabah\n");
+        return;
+    }
+    printf("\n\n======================::::: Tampilan Data Nasabah :::::======================\n");
+    printf("\n\t Data nasabah bank : \n");
+
+    while (temp2->next != NULL)
+    {
+        printf("\n\t\t Nama nasabah     : %s \n", temp2->nama);
+        printf("\n\t\t Nomor identitas  : %d \n", temp2->nomor);
+        printf("\n\t\t Saldo nasabah    : %d \n\n", temp2->saldo);
+        temp2 = temp2->next;
+    }
+        printf("\n\t\t Nama nasabah     : %s \n", temp2->nama);
+        printf("\n\t\t Nomor identitas  : %d \n", temp2->nomor);
+        printf("\n\t\t Saldo nasabah    : %d \n\n", temp2->saldo);
+
+    printf("\n\n\t Total data nasabah : %d \n", jumlahnode);
+}
+
 void updateData(int old, int new)
 {
    int urutan = 0;
@@ -374,7 +400,9 @@ int main()
             deletedata(del);
             break;
          case 3:
-
+            system("cls");
+            traverseNode();
+            break;
          case 4:
             system("cls");
             printf("\n\n========================::::: Top Up Saldo Nasabah :::::========================\n");
