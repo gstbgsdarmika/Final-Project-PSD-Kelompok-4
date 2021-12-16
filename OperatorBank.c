@@ -72,6 +72,88 @@ void deleteData(int delete)
      }
 }
 
+void updateData(int old, int new)
+{
+   int urutan = 0;
+   int plus = 1;
+   if(head == NULL)
+   {
+      printf("\n\t\t\t\t Tidak ada data nasabah\n");
+      getch();
+      main();
+   }
+
+   temp3 = head;
+   while(temp3!=NULL)
+   {
+      urutan++;
+
+      if(temp3->nomor == old)
+      {
+         temp3->saldo = temp3->saldo + new;
+         historyTopup(temp3->nama, new, plus);
+         printf("\n\t Nasabah ditemukan pada urutan %d atas nama %s, saldo ditambah menjadi %d\n", urutan, temp3->nama, temp3->saldo);
+         return;
+      }
+
+      if(temp3->next != NULL)
+      {
+         temp3 = temp3->next;
+      }
+      else
+      {
+        getch();
+        main();
+      }
+   }
+   printf("\n\t\t Maaf tidak ada nasabah dengan nomor identitas %d\n", old);
+}
+
+void updateData2(int old, int new)
+{
+   int urutan = 0;
+   int min = 0;
+
+   if(head == NULL)
+   {
+      printf("\n\t\t\t Tidak ada data nasabah");
+      getch();
+      main();
+   }
+
+   tarik = head;
+   while(tarik!=NULL)
+   {
+      urutan++;
+
+      if(tarik->nomor == old)
+      {
+         if (tarik->saldo < new)
+         {
+            printf("\n\t\t\t Mohon maaf saldo nasabah tidak cukup\n");
+            printf("\n\t\t\t    Tekan apa saja untuk kembali\n");
+            getch();
+            main();
+         }
+         tarik->saldo = tarik->saldo - new;
+         historyTopup(tarik->nama, new, min);
+         printf("\n\t Nasabah ditemukan pada urutan %d atas nama %s, saldo dikurangi menjadi %d\n", urutan, tarik->nama, tarik->saldo);
+         return;
+      }
+
+      if(tarik->next != NULL)
+      {
+         tarik = tarik->next;
+      }
+      else
+      {
+        getch();
+        main();
+      }
+   }
+   printf("\n\t\t Maaf tidak ada nasabah dengan nomor identitas %d\n", old);
+}
+
 void transferData(int asal, int tujuan, int transferData)
 {
     temp4 = head;
@@ -181,9 +263,27 @@ int main()
             updateData(lama, baru);
             break;
         case 5 :
-        
+            system("cls");
+            printf("\n\n=========================::::: Tarik Saldo Nasabah :::::========================\n");
+            printf("\n\t\t Nomor identitas    : ");
+            scanf("%d", &lama);
+            checkIdentity(lama);
+            printf("\n\t\t Nominal yang ingin ditarik nasabah   : ");
+            scanf("%d", &baru);
+            updateData2(lama, baru);
         case 6:
-        
+            system("cls");
+            printf("\n\n====================::::: Transfer Saldo ke Nasabah Lain :::::===================\n");
+            printf("\n\t\t Nomor identitas    : ");
+            scanf("%d", &asal);
+            checkIdentity(asal);
+            printf("\n\t\t Masukkan nomor identitas tujuan transfer : ");
+            scanf("%d", &transf);
+            checkIdentity2(transf);
+            printf("\n\t\t Masukkan jumlah transfer : ");
+            scanf("%d", &jumlah);
+            transferData(asal, transf, jumlah);
+            break;
         case 7:
         
         case 8:
