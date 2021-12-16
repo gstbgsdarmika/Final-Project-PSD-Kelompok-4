@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
+#define max 5
+
+struct History {
+  char nama[50];
+};
+struct History riwayat[max];
 
 //function untuk mengecek identitas nasabah
 void checkIdentity(asal){
@@ -131,6 +137,51 @@ void transferData(int asal, int tujuan, int transferData)
    }
 }
 
+//Fungsi implementasi queue
+void history(char nasabah[50])
+{
+			if(rear==max-1 && front == 0 || rear+1==front)
+         {
+            front2++;
+            if (front==rear)
+            {
+               front=-1;
+               rear=-1;
+            }
+            else
+            {
+               front=(front+1)%max;
+            }
+            history(nasabah);
+			}
+			else
+         {
+				if(front==-1)
+            {
+					front=0;
+				}
+				rear = (rear+1)%max;
+				rear2++;
+            strcpy(riwayat[rear2].nama, nasabah);
+			}
+}
+
+//Fungsi mencetak history
+void showHistory()
+{
+   if(front!=-1)
+         {
+	        for(i=front2; i<=rear2; i++)
+           {
+				 printf("\n\t\t Nama Nasabah    : %s  (Transfer)\n", riwayat[i].nama);
+			  }
+			}
+			else
+         {
+				printf("\n\t\t\t\t History kosong\n");
+			}
+}
+
 
 int main()
 {
@@ -185,7 +236,10 @@ int main()
         case 6:
         
         case 7:
-        
+            system("cls");
+            printf("\n\n=========================:::: Cek Riwayat Transaksi :::::========================\n");
+            showHistory();
+            break;
         case 8:
        
         break;
