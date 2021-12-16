@@ -175,6 +175,7 @@ void traverseNode(){
     printf("\n\n\t Total data nasabah : %d \n", jumlahnode);
 }
 
+// function untuk top up saldo nasabah pada menu keempat
 void updateData(int old, int new)
 {
    int urutan = 0;
