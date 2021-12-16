@@ -72,12 +72,88 @@ void deleteData(int delete)
      }
 }
 
+void transferData(int asal, int tujuan, int transferData)
+{
+    temp4 = head;
+    char tf[50];
+    if(head == NULL)
+   {
+      printf("\n\t\t\t   Tidak ada data nasabah\n");
+      printf("\n\t\t\t Tekan apa saja untuk kembali\n");
+      getch();
+      main();
+   }
+
+   while(temp4!=NULL)
+   {
+      if(temp4->nomor == asal)
+      {
+         printf("\n\t Nasabah atas nama %s\n", temp4->nama);
+         if (temp4->saldo < transferData)
+         {
+            printf("\n\t\t\t Mohon maaf saldo nasabah tidak cukup\n");
+            printf("\n\t\t\t    Tekan apa saja untuk kembali\n");
+            getch();
+            main();
+         }
+         temp4->saldo = temp4->saldo - transferData;
+         history(temp4->nama);
+      }
+      if(temp4->next != NULL)
+      {
+         temp4 = temp4->next;
+      }
+      else
+      {
+         break;
+      }
+   }
+
+   temp4 = head;
+   while(temp4!=NULL)
+   {
+      if(temp4->nomor == tujuan)
+      {
+         temp4->saldo = temp4->saldo + transferData;
+         printf("\n\t akan mentransfer dana kepada nasabah lain atas nama %s\n", temp4->nama);
+         printf("\n\t\t\t   Transfer berhasil dilakukan!\n");
+         return;
+      }
+      if(temp4->next != NULL)
+      {
+         temp4 = temp4->next;
+      }
+      else
+      {
+         getch();
+         main();
+      }
+   }
+}
+
+
 int main()
 {
     int menu;
     do
     {
-        
+        int menu,ulang,lama,baru,asal,transf,jumlah,del,topup;
+    do
+    {
+    system("cls");
+    printf("\n\n==========================::::: PROGRAM MENU BANK :::::==========================\n");
+    printf("\n Pilihan Menu :\n");
+    printf("\n\t 1. Tambah Data Nasabah\n");
+    printf("\n\t 2. Hapus Data Nasabah\n");
+    printf("\n\t 3. Tampilkan Data Nasabah\n");
+    printf("\n\t 4. Top Up Saldo Nasabah\n");
+    printf("\n\t 5. Tarik  Saldo Nasabah\n");
+    printf("\n\t 6. Transfer Saldo ke Nasabah Lain\n");
+    printf("\n\t 7. Cek Riwayat Transfer\n");
+    printf("\n\t 8. Cek Riwayat Transaksi\n");
+    printf("\n=================================================================================\n");
+    printf("\n\t Masukkan Pilihan Anda : ");
+    scanf("%d", &menu);  
     
     switch(menu)
      {
@@ -95,42 +171,15 @@ int main()
         case 3:
         
         case 4:
-        void update(int old, int new)
-        {
-           int urutan = 0;
-           int plus = 1;
-           if(head == NULL)
-           {
-              printf("|$|Tidak ada data nasabah");
-              getch();
-              main();
-           } 
-
-           temp3 = head;
-           while(temp3!=NULL)
-           {
-              urutan++;
-
-              if(temp3->nomor == old)
-              {
-                 temp3->saldo = temp3->saldo + new;
-                 histtopup(temp3->nama, new, plus);
-                 printf("\n|$|Nasabah ditemukan pada urutan %d atas nama %s, saldo ditambah menjadi %d\n", urutan, temp3->nama, temp3->saldo);
-                 return;
-              }
-
-              if(temp3->next != NULL)
-              {
-                 temp3 = temp3->next;
-              }
-              else
-              {
-                getch();
-                main();
-              }
-           }
-           printf("|$|Maaf tidak ada nasabah dengan nomor identitas %d\n", old);
-        }
+            system("cls");
+            printf("\n\n========================::::: Top Up Saldo Nasabah :::::========================\n");
+            printf("\n\t\t Nomor identitas  : ");
+            scanf("%d", &lama);
+            checkIdentity(lama);
+            printf("\n\t\t Masukkan nominal top up : ");
+            scanf("%d", &baru);
+            updateData(lama, baru);
+            break;
         case 5 :
         
         case 6:
